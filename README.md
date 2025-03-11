@@ -49,3 +49,16 @@ Mapeo de información
 Y más
 
 Esta sección nos encaminará a prepararnos fuertemente en el manejo de estado de nuestra aplicación.
+
+Temas puntuales
+Esta sección es opcional pero recomendada a las personas que quieran profundizar un poco más en Angular.
+
+Puntualmente veremos:
+
+Preservar estado del scroll
+
+Hacer scroll infinito
+
+Diseño masonry
+
+Técnicas y herramientas para depurar

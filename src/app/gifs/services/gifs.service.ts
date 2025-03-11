@@ -3,7 +3,7 @@ import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { environment } from '@envs/environment';
 import { GiphyResponse } from '../interfaces/giphy.interfaces';
 import { Gif } from '../interfaces/gif.interface';
-import { GifMappeer } from '../mapper/gif.mapper';
+import { GifMappeer } from '../mapping/gif.mapper';
 import { map, Observable, tap } from 'rxjs';
 
 const GIF_KEY = 'gifs';
@@ -19,8 +19,18 @@ const loadFromLocalStorage = () => {
 export class GifService {
   private http = inject(HttpClient);
 
-  trendingGifs = signal<Gif[]>([]);
+  trendingGifs = signal<Gif[]>([]); //[gif,gif,gif,gif]
   trendingGifsLoading = signal(true);
+
+  //[gif,gif,gif] [gif,gif,gif] [gif,gif,gif]
+  trendingGifGroup = computed<Gif[][]>(() => {
+    const groups = [];
+    for (let i = 0; i < this.trendingGifs().length; i += 3) {
+      groups.push(this.trendingGifs().slice(i, i + 3));
+    }
+    console.log(groups);
+    return groups;
+  });
 
   searchHistory = signal<Record<string, Gif[]>>(loadFromLocalStorage());
   searchHistoryKeys = computed(() => Object.keys(this.searchHistory()));
