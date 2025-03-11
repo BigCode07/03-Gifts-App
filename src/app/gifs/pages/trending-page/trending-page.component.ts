@@ -10,12 +10,11 @@ import { ScrollStateService } from 'src/app/shared/services/scroll-state.service
 
 @Component({
   selector: 'app-trending-page',
-  imports: [],
   templateUrl: './trending-page.component.html',
 })
 export default class TrendingPageComponent implements AfterViewInit {
-  gifService = inject(GifService); //servicio
-  scrollStateService = inject(ScrollStateService); //servicio
+  gifService = inject(GifService);
+  scrollStateService = inject(ScrollStateService);
 
   scrollDivRef = viewChild<ElementRef<HTMLDivElement>>('groupDiv');
 
@@ -33,12 +32,12 @@ export default class TrendingPageComponent implements AfterViewInit {
     const scrollTop = scrollDiv.scrollTop;
     const clientHeight = scrollDiv.clientHeight;
     const scrollHeight = scrollDiv.scrollHeight;
-    // console.log({ scrollTotal: scrollTop + clientHeight, scrollHeight });
-    const isAtBotton = scrollTop + clientHeight + 300 >= scrollHeight;
-    this.scrollStateService.trendingScrollState.set(scrollTop); //No es recomendado
 
-    if (isAtBotton) {
-      //TODO: Cargar la siguiente pagina de gifs
+    // console.log({ scrollTotal: scrollTop + clientHeight, scrollHeight });
+    const isAtBottom = scrollTop + clientHeight + 300 >= scrollHeight;
+    this.scrollStateService.trendingScrollState.set(scrollTop);
+
+    if (isAtBottom) {
       this.gifService.loadTrendingGifs();
     }
   }
